@@ -1,0 +1,32 @@
+###
+POST http://localhost:8080/api/student
+Content-Type: application/json
+
+{
+    "name": "Semen",
+    "email": "s.semenov@npu.edu.ua",
+    "birthDay": "1999-04-10"
+}
+
+###
+DELETE http://localhost:8080/api/student/1
+
+###
+PUT http://localhost:8080/api/student/2?name=Maria
+Content-Type: application/json
+
+###
+PUT http://localhost:8080/api/student/2?name=Masha
+Content-Type: application/json
+
+###
+PUT http://localhost:8080/api/student/4?name=Maria
+Content-Type: application/json
+
+###
+PUT http://localhost:8080/api/student/2?name=Maria&email=m.petrova@student.npu.edu.ua
+Content-Type: application/json
+
+###
+PUT http://localhost:8080/api/student/2?email=i.ivanov@student.npu.edu.ua
+Content-Type: application/json

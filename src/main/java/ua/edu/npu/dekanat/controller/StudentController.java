@@ -1,7 +1,10 @@
 package ua.edu.npu.dekanat.controller;
 
+import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import ua.edu.npu.dekanat.model.Student;
 import ua.edu.npu.dekanat.services.StudentService;
 
@@ -9,7 +12,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping(path="api/student")
 public class StudentController {
 
@@ -22,13 +25,25 @@ public class StudentController {
     }
 
     @GetMapping
-    public List<Student> getStudents() {
-        return studentService.getStudents();
+    public ModelAndView getStudents() {
+        ModelAndView mav = new ModelAndView("student-list");
+        mav.addObject("something", "Student list");
+        mav.addObject("students", studentService.getStudents());
+        return mav;
+    }
+
+    @GetMapping(path = "/addNew")
+    public ModelAndView showAddForm() {
+        ModelAndView mav = new ModelAndView("add-student-form");
+        Student student = new Student();
+        mav.addObject("new_student", student);
+        return mav;
     }
 
     @PostMapping
-    public void addNewStudent(@RequestBody Student student) {
+    public String addNewStudent(@ModelAttribute Student student) {
         studentService.addNewStudent(student);
+        return "redirect:/api/student";
     }
 
     @DeleteMapping(path = "{studentId}")

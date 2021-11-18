@@ -12,7 +12,7 @@
 	<artifactId>dekanat</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>dekanat</name>
-	<description>Web app for Deakant</description>
+	<description>Web app for Dekanat</description>
 	<properties>
 		<java.version.property>11</java.version.property>
 		<java.version>${java.version.property}</java.version>
@@ -20,6 +20,12 @@
 		<maven.compiler.target>${java.version.property}</maven.compiler.target>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+			<version>2.5.6</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>

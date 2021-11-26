@@ -40,22 +40,47 @@ public class StudentController {
         return mav;
     }
 
+    @GetMapping(path = "/updateStudent")
+    public ModelAndView showEditForm(@RequestParam Long studentId) {
+        ModelAndView mav = new ModelAndView("edit-student-form");
+        Student student = studentService.findById(studentId);
+        mav.addObject("student", student);
+        return mav;
+    }
+
+    @GetMapping(path = "/deleteStudent")
+    public String deleteStudent(@RequestParam Long studentId) {
+        studentService.deleteStudent(studentId);
+        return "redirect:/api/student";
+    }
+
+
     @PostMapping
     public String addNewStudent(@ModelAttribute Student student) {
         studentService.addNewStudent(student);
         return "redirect:/api/student";
     }
 
-    @DeleteMapping(path = "{studentId}")
-    public void deleteStudent(@PathVariable("studentId") Long id) {
-        studentService.deleteStudent(id);
-    }
+//    @DeleteMapping(path = "{studentId}")
+//    public void deleteStudent(@PathVariable("studentId") Long id) {
+//        studentService.deleteStudent(id);
+//    }
 
-    @PutMapping(path = "{studentId}")
-    public void updateStudent(
-            @PathVariable("studentId") Long studentId,
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) String email) {
-        studentService.updateStudent(studentId, name, email);
+//    @PutMapping(path = "{studentId}")
+//    public void updateStudent(
+//            @PathVariable("studentId") Long studentId,
+//            @RequestParam(required = false) String name,
+//            @RequestParam(required = false) String email) {
+//        studentService.updateStudent(studentId, name, email);
+//    }
+
+    @PostMapping(path = "/update")
+    public String updateStudentData(@ModelAttribute Student student) {
+        studentService.updateStudent(
+                student.getId(),
+                student.getName(),
+                student.getEmail()
+        );
+        return "redirect:/api/student";
     }
 }

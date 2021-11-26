@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Student List</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/datatables.min.css"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 </head>
 <body>
 
@@ -15,13 +17,14 @@
         <a th:href="@{/api/student/addNew}" class="btn btn-primary mb-2">Додати запис</a>
 
 
-        <table class="table table=bordered table-striped">
+        <table class="table table=bordered table-striped" id="student_table">
             <thead>
                 <tr>
                     <th>Name</th>
                     <th>E-mail</th>
                     <th>Age</th>
                     <th>Birth Day</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,9 +33,25 @@
                 <td th:text="${student.email}"></td>
                 <td th:text="${student.age}"></td>
                 <td th:text="${student.birthDay}"></td>
+                <td>
+                    <a th:href="@{/api/student/updateStudent(studentId=${student.id})}" class="btn btn-info">Редагувати</a>
+                    <a th:href="@{/api/student/deleteStudent(studentId=${student.id})}" class="btn btn-danger">Вилучити</a>
+                </td>
             </tr>
             </tbody>
         </table>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/datatables.min.js"></script>
+    <script>
+        $(document).ready( function () {
+            $('#student_table').DataTable({
+                'aoColumnDefs': [{
+                    'bSortable': false,
+                    'aTargets': [-1]
+                }]
+            });
+        } )
+    </script>
 </body>
 </html>

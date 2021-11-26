@@ -24,7 +24,7 @@ public class StudentService {
     }
 
     public List<Student> getStudents() {
-        return studentRepository.findAll();
+        return studentRepository.findAllByOrderByIdAsc();
     }
 
     public void addNewStudent(Student student) {
@@ -66,5 +66,13 @@ public class StudentService {
             }
             student.setEmail(email);
         }
+    }
+
+    public Student findById(Long studentId) {
+        if (!studentRepository.existsById(studentId))
+            throw new IllegalStateException(
+                    "Student with id " + studentId + " does not exist"
+            );
+        return studentRepository.findById(studentId).get();
     }
 }
